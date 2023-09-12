@@ -24,6 +24,7 @@ void * thd_func1 (void *arg) {
 
 void *thd_func2 (void *arg) {
     // rwlock也是公共資源的一種，我在思考他被互斥鎖鎖住的可能性。也就是說當我執行thd_func1的時候，直到我thd_func1的counter_mtx.unlock()執行之前，thd_func2都無法被上寫鎖。
+    // 以本題的情況，兩個寫鎖其實也不會加快太多進程，因為寫鎖也是同時只能有一個存在。
     pthread_rwlock_wrlock(&rwlock);
     counter_mtx.lock();
     counter--;
